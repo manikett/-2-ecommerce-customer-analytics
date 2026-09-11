@@ -2,7 +2,7 @@
 
 An end-to-end data analytics and behavioral customer segmentation platform built with Python, Streamlit, and Google Cloud BigQuery. The system ingests e-commerce transaction data, calculates dynamic RFM scoring, models Customer Lifetime Value (CLV), computes cohort retention matrices, and exposes an executive decision-making dashboard.
 
-GȜq️ Key Features
+## 🚧 Key Features
 - **ELT Pipeline**: Extracts and processes granular transaction records from Google Cloud BigQuery.
 - **RFM Segmentation Engine**: Recency, Frequency, and Monetary scoring that segments buyers into behavioral cohorts (*Champions*, *Loyal*, *At Risk*, *Lost*).
 - **Cohort Retention Heatmap**: Tracks month-on-month customer retention curves using Seaborn matrix visualizations.
@@ -37,7 +37,7 @@ GȜq️ Key Features
 
 4. **Environment Variables:**
    Create a  `.env` file in the root directory:
-   ``gtext
+   ```bash
    BIGQUERY_PROJECT_ID=your_gcp_project_id
    ```
 
