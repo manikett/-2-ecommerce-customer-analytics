@@ -1,8 +1,15 @@
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 from google.cloud import bigquery
 import pandas as pd
-import os
 
-PROJECT_ID = "boxwood-pilot-508218-n5"
+# Load environment variable
+load_dotenv()
+PROJECT_ID = os.getenv("BIGQUERY_PROJECT_ID")
+
+if not PROJECT_ID:
+    raise ValueError("BIGQUERY_PROJECT_ID missing in .env file!")
 
 client = bigquery.Client(project=PROJECT_ID)
 
@@ -30,15 +37,14 @@ print("Fetching data from BigQuery...")
 
 df = client.query(query).to_dataframe()
 
-print(f"Records fetched: {len(df)}")
-print(f"Customers: {df['customer_id'].nunique()}")
+print(f"Records fetched: {len(df):,}")
+print(f"Customers: {df['customer_id'].nunique():,}")
 
-os.makedirs("data", exist_ok=True)
+BASE_DIR = Path(__file__).resolve().parent
+output_dir = BASE_DIR / "data"
+output_dir.mkdir(parents=True, exist_ok=True)
 
-output_file = "data/transactions.csv"
+output_file = output_dir / "transactions.csv"
 df.to_csv(output_file, index=False)
 
 print(f"Dataset saved to: {output_file}")
-
-print("\nFirst 5 records:")
-print(df.head())
